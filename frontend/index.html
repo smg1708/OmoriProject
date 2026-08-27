@@ -19,17 +19,42 @@
     <div class="container-final">
         <div class="box-faca">
             <img src="/frontend/assets/home/faca.png" alt="">
-        </div>
-        <div class="box-dialogo">
-            <div class="box-nome"><p>Nothing</p></div>
-            <div class="box-comentario">
-                <div class="box-texto">
-                    <p>Voce encontrou uma faca</p>
+        </div> 
+        <div class="box-dialogo" id="boxDialogo">
+            <div class="box-nome" id="boxNome"><p id="nome">Nothing</p></div>
+            <div class="box-comentario" id="boxComentario" onclick="passarDialogo()">
+                <div class="box-texto" id="boxTexto">
+                    <p id="texto">Voce encontrou uma faca</p>
                 </div>
                 <div class="box-imagem">
                     <img src="/frontend/assets/todos/passarDialogo.png" alt=""></div>
                 </div>
+                <div class="box-botao">
+                    <button onclick="corteFaca()">USAR FACA</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
 </html>
+
+<script>
+    function passarDialogo() {
+        let texto = texto.value
+        let boxDialogo = boxDialogo.value 
+        mensagem += `
+            <div class="box-dialogo" id="boxDialogo">
+                <div class="box-nome" id="boxNome"><p id="nome">Nothing</p></div>
+                <div class="box-comentario" id="boxComentario" onclick="passarDialogo()">
+                    <div class="box-texto" id="boxTexto">
+                        <p id="texto">Voce encontrou uma faca</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        `
+        boxDialogo.innerHTML = mensagem
+    }
+</script>
