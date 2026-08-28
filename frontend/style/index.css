@@ -97,6 +97,22 @@
     width: 100%;
 }
 
+.box-botao button {
+    background: none;
+    border: white 2px solid;
+    cursor: pointer;
+    font-size: 32px;
+    height: 50px;
+    transition: all 0.3s ease;
+    width: 200px;
+}
+
+.box-botao button:hover {
+    color: #fa0901;
+    font-size: 32px;
+    transform: translateX(4px);
+}
+
 @keyframes piscar {
     0%, 100% {
         opacity: 1;
