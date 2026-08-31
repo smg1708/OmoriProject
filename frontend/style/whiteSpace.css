@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family:'Omori';
+    font-weight:normal;
+    color: white;
+}
+
+html {
+    scrollbar-gutter: stable;
+}
+
+@font-face {
+    font-family: 'Omori';
+    src: url('/frontend/font/OMORI_GAME2.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.container-inicio {
+    background-image: url("/frontend/assets/whiteSpace/backgroundWhiteSpace.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 115vh;
+}

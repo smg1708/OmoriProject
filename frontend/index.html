@@ -1,60 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="/frontend/style/index.css">
+    <link rel="stylesheet" href="/frontend/style/index.css">
 </head>
-<header>
-    <div class="container-navbar">
-        <div class="">
 
-        </div>
-    </div>
-</header>
 <body>
-    <div class="container-inicio">
-    </div>
-    <div class="container-final">
-        <div class="box-faca">
-            <img src="/frontend/assets/home/faca.png" alt="">
-        </div> 
-        <div class="box-dialogo" id="boxDialogo">
-            <div class="box-nome" id="boxNome"><p id="nome">Nothing</p></div>
-            <div class="box-comentario" id="boxComentario" onclick="passarDialogo()">
-                <div class="box-texto" id="boxTexto">
-                    <p id="texto">Voce encontrou uma faca</p>
+    <div id="paginaInicial">
+        <div class="container-inicio"></div>
+        <div class="container-final">
+            <div class="box-faca" id="boxFaca">
+                <img src="/frontend/assets/home/faca.png" alt="Faca">
+            </div>
+            <div class="box-dialogo" id="boxDialogo">
+                <div class="box-nome">
+                    <p>Nothing</p>
                 </div>
-                <div class="box-imagem">
-                    <img src="/frontend/assets/todos/passarDialogo.png" alt=""></div>
-                </div>
-                <div class="box-botao">
-                    <button onclick="corteFaca()">USAR FACA</button>
+                <div class="box-comentario" onclick="passarDialogo()">
+                    <div class="box-texto">
+                        <p>Você encontrou uma faca!!!</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="telaCorte" aria-hidden="true">
+        <div class="parte-corte parte-cima"></div>
+        <div class="parte-corte parte-direita"></div>
+        <div class="parte-corte parte-baixo"></div>
+        <div class="parte-corte parte-esquerda"></div>
+
+        <svg class="linhas-corte" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 L100 100" pathLength="1"></path>
+            <path d="M100 0 L0 100" pathLength="1"></path>
+        </svg>
     </div>
 </body>
 </html>
 
 <script>
+
     function passarDialogo() {
-        let texto = texto.value
-        let boxDialogo = boxDialogo.value 
+        const boxFaca = document.getElementById("boxFaca");
+        setTimeout(() => {
+            boxFaca.style.width = "100px";
+            boxFaca.style.height = "100px";
+        }, 300);
+        setTimeout(() => {
+            boxFaca.style.width = "150px";
+            boxFaca.style.height = "150px";
+        }, 800);
+        setTimeout(() => {
+            boxFaca.style.width = "200px";
+            boxFaca.style.height = "200px";
+        }, 1500);
+        
+        var mensagem = ""
         mensagem += `
             <div class="box-dialogo" id="boxDialogo">
-                <div class="box-nome" id="boxNome"><p id="nome">Nothing</p></div>
-                <div class="box-comentario" id="boxComentario" onclick="passarDialogo()">
-                    <div class="box-texto" id="boxTexto">
-                        <p id="texto">Voce encontrou uma faca</p>
-                    </div>
-                    <div class="box-imagem">
-                        <img src="/frontend/assets/todos/passarDialogo.png" alt=""></div>
-                    </div>
+                <div class="box-botao">
+                    <button onclick="corteFaca()">USAR FACA</button>
                 </div>
             </div>
         `
+        boxDialogo.innerHTML = ""
         boxDialogo.innerHTML = mensagem
     }
+
+    function corteFaca() {
+        const pagina = document.getElementById("paginaInicial");
+        const tela = document.getElementById("telaCorte");
+        const partes = tela.querySelectorAll(".parte-corte");
+
+        if (tela.classList.contains("ativo")) return;
+
+        const posicao = pagina.getBoundingClientRect();
+
+        partes.forEach((parte) => {
+            const copia = pagina.cloneNode(true);
+            copia.removeAttribute("id");
+            copia.querySelectorAll("[id]").forEach((elemento) => {
+                elemento.removeAttribute("id");
+            });
+            copia.inert = true;
+            Object.assign(copia.style, {
+                position: "absolute",
+                top: `${posicao.top}px`,
+                left: `${posicao.left}px`,
+                width: `${posicao.width}px`,
+                margin: "0",
+                pointerEvents: "none"
+            });
+            parte.replaceChildren(copia);
+        });
+
+        document.documentElement.style.overflow = "hidden";
+
+        tela.classList.add("ativo");
+
+        setTimeout(() => {
+            pagina.hidden = true;
+
+            partes.forEach((parte) => {
+                parte.replaceChildren();
+            });
+
+            tela.classList.add("piscando");
+
+            setTimeout(() => {
+                window.location.href = "whiteSpace.html";
+            }, 1800);
+
+        }, 1800);
+    }
+
 </script>
