@@ -8,15 +8,142 @@
 </head>
 
 <body>
-    <div id="paginaInicial">
+    <div id="whitePage">
         <div class="container-inicio">
-            <div class="porta"></div>
-            <div class="notebook"></div>
-            <div class="lampada"></div>
-            <div class="gato"></div>
-            <div class="caderno"></div>
-            <div class="lenco"></div>
+            <div class="itemClique porta" onclick="porta()"></div>
+            <div class="itemClique notebook" onclick="notebook()"></div>
+            <div class="itemClique lampada" onclick="lampada()"></div>
+            <div class="itemClique gato" onclick="gato()"></div>
+            <div class="itemClique caderno" onclick="caderno()"></div>
+            <div class="itemClique lenco" onclick="lenco()"></div>
+        </div>
+        <div class="container-dialogo" id="containerDialogo">
+            <div class="box-dialogo" id="boxDialogo" style="display: none;">
+            </div>
         </div>
     </div>
 </body>
 </html>
+
+<script>
+
+    function porta() {
+        const box = document.getElementById("boxDialogo");
+        box.innerHTML = `
+            <div class="box-nome">
+                <p>A Porta</p>
+            </div>
+            <div class="box-comentario" onclick="passarDialogo()">
+                <div class="box-texto">
+                    <p>Uma porta branca projeta uma sombra tênue.<br>O que você gostaria de fazer?</p>
+                </div>
+                <div class="box-imagem">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                </div>
+            </div>
+        `;
+
+        box.style.display = "flex";
+    }
+    function notebook() {
+        const box = document.getElementById("boxDialogo");
+        box.innerHTML = `
+            <div class="box-nome">
+                <p>Laptop</p>
+            </div>
+            <div class="box-comentario" onclick="passarDialogo()">
+                <div class="box-texto">
+                    <p>Você ligou seu laptop. O calor do laptop aqueceu seu colo. Foi uma sensação agradável, mas ele desligou</p>
+                </div>
+                <div class="box-imagem">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                </div>
+            </div>
+        `;
+
+        box.style.display = "flex";
+    }
+
+    function lampada() {
+        const box = document.getElementById("boxDialogo");
+        box.innerHTML = `
+            <div class="box-nome">
+                <p>Lâmpada</p>
+            </div>
+            <div class="box-comentario" onclick="passarDialogo()">
+                <div class="box-texto">
+                    <p>Uma lâmpada está pendurada no teto, seja lá onde for.<br>Está completamente escuro lá dentro. Você não consegue ver nada.</p>
+                </div>
+                <div class="box-imagem">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                </div>
+            </div>
+        `;
+
+        box.style.display = "flex";
+    }
+
+    function caderno() {
+        const box = document.getElementById("boxDialogo");
+        box.innerHTML = `
+            <div class="box-nome">
+                <p>Caderno de Desenhos</p>
+            </div>
+            <div class="box-comentario" onclick="passarDialogo()">
+                <div class="box-texto">
+                    <p>Seu caderno de desenhos.</p>
+                </div>
+                <div class="box-imagem">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                </div>
+            </div>
+        `;
+
+        box.style.display = "flex";
+    }
+
+    function gato() {
+        const box = document.getElementById("boxDialogo");
+        box.innerHTML = `
+            <div class="box-nome">
+                <p>Mewo</p>
+            </div>
+            <div class="box-comentario" onclick="passarDialogo()">
+                <div class="box-texto">
+                    <p>Meow? (Esperando alguma coisa acontecer?)</p>
+                </div>
+                <div class="box-imagem">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                </div>
+            </div>
+        `;
+
+        box.style.display = "flex";
+    }
+
+    function lenco() {
+        const box = document.getElementById("boxDialogo");
+        box.innerHTML = `
+            <div class="box-nome">
+                <p>Caixa de Lenços</p>
+            </div>
+            <div class="box-comentario" onclick="passarDialogo()">
+                <div class="box-texto">
+                    <p>Uma caixa de lenços para enxugar suas mágoas..</p>
+                </div>
+                <div class="box-imagem">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                </div>
+            </div>
+        `;
+        
+        box.style.display = "flex";
+    }
+
+    function passarDialogo() {
+        const box = document.getElementById("boxDialogo");
+        box.style.display = "none";
+        box.innerHTML = "";
+    }
+
+</script>
