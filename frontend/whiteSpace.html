@@ -22,6 +22,8 @@
             </div>
         </div>
     </div>
+    <div id="telaCorte" aria-hidden="true">
+    </div>
 </body>
 </html>
 
@@ -30,12 +32,35 @@
     function porta() {
         const box = document.getElementById("boxDialogo");
         box.innerHTML = `
-            <div class="box-nome">
-                <p>A Porta</p>
+            <div class="box-escolhas">
+                <button onclick="abrirPorta()">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="">
+                    <span>Abrir a porta?</span>
+                </button>
+                <button onclick="passarDialogo()">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="">
+                    <span>Não fazer nada</span>
+                </button>
             </div>
-            <div class="box-comentario" onclick="passarDialogo()">
+            <div class="box-comentario">
                 <div class="box-texto">
                     <p>Uma porta branca projeta uma sombra tênue.<br>O que você gostaria de fazer?</p>
+                </div>
+            </div>
+        `;
+
+        box.style.display = "flex";
+    }
+
+    function notebook() {
+        const box = document.getElementById("boxDialogo");
+        box.innerHTML = `
+            <div class="box-nome">
+                <p>Laptop</p>
+            </div>
+            <div class="box-comentario" onclick="notev2()">
+                <div class="box-texto">
+                    <p>Você ligou seu laptop. O calor do laptop aqueceu seu colo. Foi uma sensação agradável</p>
                 </div>
                 <div class="box-imagem">
                     <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
@@ -45,15 +70,28 @@
 
         box.style.display = "flex";
     }
-    function notebook() {
+
+    function notev2() {
         const box = document.getElementById("boxDialogo");
         box.innerHTML = `
-            <div class="box-nome">
-                <p>Laptop</p>
+            <div class="container-nome-escolha">
+                <div class="box-nome">
+                    <p>Laptop</p>
+                </div>
+                <div class="box-escolhas">
+                    <button onclick="entrarNote()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="">
+                        <span>Acessar laptop</span>
+                    </button>
+                    <button onclick="passarDialogo()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="">
+                        <span>Desligar</span>
+                    </button>
+                </div>
             </div>
-            <div class="box-comentario" onclick="passarDialogo()">
+            <div class="box-comentario">
                 <div class="box-texto">
-                    <p>Você ligou seu laptop. O calor do laptop aqueceu seu colo. Foi uma sensação agradável, mas ele desligou</p>
+                    <p>Você esta encarando a tela, o que você quer fazer?</p>
                 </div>
                 <div class="box-imagem">
                     <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
@@ -61,7 +99,11 @@
             </div>
         `;
 
-        box.style.display = "flex";
+        box.style.display = "flex"; 
+    }
+
+    function entrarNote() {
+        window.location.href = "login.html";
     }
 
     function lampada() {
@@ -144,6 +186,38 @@
         const box = document.getElementById("boxDialogo");
         box.style.display = "none";
         box.innerHTML = "";
+    }
+
+    function abrirPorta() {
+        const box = document.getElementById("boxDialogo");
+        const tela = document.getElementById("telaCorte");
+        const pagina = document.getElementById("whitePage");
+
+        box.innerHTML = `
+            <div class="box-nome">
+                <p>A Porta</p>
+            </div>
+
+            <div class="box-comentario">
+                <div class="box-texto">
+                    <p>Você abriu a porta...</p>
+                </div>
+            </div>
+        `;
+
+        document.documentElement.style.overflow = "hidden";
+        tela.classList.add("ativo");
+
+        setTimeout(() => {
+            pagina.hidden = true;
+
+            tela.classList.add("piscando");
+
+            setTimeout(() => {
+                window.location.href = "mundoSonhos.html";
+            }, 1200);
+
+        }, 1000);
     }
 
 </script>

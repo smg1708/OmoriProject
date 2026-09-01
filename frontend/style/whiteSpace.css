@@ -41,7 +41,6 @@ body {
 .itemClique {
     position: absolute;
     cursor: pointer;
-    border: 1px solid red;
 }
 
 .porta {
@@ -105,6 +104,13 @@ body {
     width: min(530px, 90vw);
 }
 
+.container-nome-escolha {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .box-nome {
     background-color: black;
     border: 2px solid white;
@@ -145,6 +151,91 @@ body {
     height: 100%;
     object-fit: contain;
     width: 100%;
+}
+
+.box-escolhas {
+    align-self: flex-end;
+    background-color: black;
+    border: 3px solid white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    outline: 2px solid black;
+    width: 300px;
+}
+
+.box-escolhas button {
+    align-items: center;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    font-family: "Omori";
+    font-size: 28px;
+    text-align: left;
+    min-height: 45px;
+    width: 100%;
+}
+
+.box-escolhas button img {
+    height: 35px;
+    object-fit: contain;
+    opacity: 0;
+    width: 35px;
+}
+
+.box-escolhas button:first-child img {
+    opacity: 1;
+}
+
+.box-escolhas:has(button:hover) button:first-child img {
+    opacity: 0;
+}
+
+.box-escolhas button:hover img {
+    opacity: 1;
+    animation: moverSeta 0.5s steps(2) infinite;
+}
+
+#telaCorte {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background-color: white;
+}
+
+#telaCorte.ativo {
+    display: block;
+}
+
+#telaCorte.piscando {
+    animation: piscarPagina 0.6s steps(1) 3;
+    pointer-events: none;
+}
+
+@keyframes piscarPagina {
+    0%,
+    100% {
+        background-color: white;
+    }
+
+    50% {
+        background-color: black;
+    }
+}
+
+@keyframes moverSeta {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(5px);
+    }
 }
 
 @keyframes piscar {
