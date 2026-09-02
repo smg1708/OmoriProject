@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>White Space</title>
-    <link rel="stylesheet" href="/frontend/style/whiteSpace.css">
+    <title>Espaço Branco</title>
+    <link rel="stylesheet" href="/frontend/style/espacoBranco.css">
 </head>
 
 <body>
-    <div id="whitePage">
+    <div id="paginaBranca">
         <div class="container-inicio">
             <div class="itemClique porta" onclick="porta()"></div>
             <div class="itemClique notebook" onclick="notebook()"></div>
@@ -191,7 +191,7 @@
     function abrirPorta() {
         const box = document.getElementById("boxDialogo");
         const tela = document.getElementById("telaCorte");
-        const pagina = document.getElementById("whitePage");
+        const pagina = document.getElementById("paginaBranca");
 
         box.innerHTML = `
             <div class="box-nome">
@@ -215,9 +215,9 @@
 
             setTimeout(() => {
                 window.location.href = "mundoSonhos.html";
-            }, 1200);
+            }, 800);
 
-        }, 1000);
+        }, 600);
     }
 
 </script>

@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family:'Omori';
+    font-weight:normal;
+    color: white;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: 'Omori';
+    src: url('/frontend/font/OMORI_GAME2.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.container-inicio {
+    align-items: center;
+    background-image: url("/frontend/assets/login/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+}
+
+.container-login {
+    align-items: center;
+    background-color: #F7F7F7;
+    border: #000000 2px solid;
+    color: #3C2C2C;
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    height: 55vh;
+}
+
+.container-login h2 {
+    color: #3C2C2C;
+    font-size: 72px;
+    font-weight: 700;
+}
+
+.container-login p {
+    color: #3C2C2C;
+    font-size: 36px;
+}
+
+.box-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5%;
+    gap: 40px;
+}
+
+.container-input {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.box-input {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+.box-input input {
+    background-color: #7B6767;
+    border: 1.5px #000000 solid;
+    color: #F7F7F7;
+    font-size: 22px;
+    padding: 0 10px;
+    width: 210px;
+}
+
+.container-botoes {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+.box-botoes {
+    display: flex;
+}
+
+.box-botoes button{
+    background-color: #3C2C2C;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    height: 50px;
+    width: 120px;
+}
