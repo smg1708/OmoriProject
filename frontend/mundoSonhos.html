@@ -7,10 +7,609 @@
     <link rel="stylesheet" href="/frontend/style/mundoSonhos.css">
 </head>
 
-<body>
-    <div class="container-inicio">
+<body onload="comecoDialogo()">
+    <div class="container-inicio" id="cenario">
+        <div class="fundo-slide fundo-atual" id="fundoAtual"></div>
+        <div class="fundo-slide fundo-proximo" id="fundoProximo"></div>
+        <div class="container-dialogo" id="containerDialogo">
+            <div class="box-dialogo" id="boxDialogo" style="display: flex;">
+            </div>
+        </div>
     </div>
 </body>
 </html>
 
-<script></script>
+<script>
+
+    let mudandoFundo = false;
+
+    const cadastro = {
+        nomeSonho: "",
+        medo: "",
+        cor: "",
+        emocao: "",
+        escolhas: [],
+        email: "",
+        senha: "",
+        dataNascimento: "",
+        nivelSonhador: 0
+    };
+
+    function trocarBackground(novaImagem) {
+        if (mudandoFundo) return;
+
+        mudandoFundo = true;
+
+        const cenario = document.getElementById("cenario");
+        const fundoAtual = document.getElementById("fundoAtual");
+        const fundoProximo = document.getElementById("fundoProximo");
+
+        fundoProximo.style.backgroundImage = `url("${novaImagem}")`;
+        void fundoProximo.offsetWidth;
+
+        setTimeout(() => {
+            fundoAtual.style.backgroundImage = `url("${novaImagem}")`;
+            fundoProximo.style.backgroundImage = "";
+            mudandoFundo = false;
+        }, 800);
+    }
+
+    function comecoDialogo() {
+        const box = document.getElementById("boxDialogo");
+        box.innerHTML = `
+            <div class="box-escolhas">
+                <button onclick="primeiraVez()">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="">
+                    <span>Sim!</span>
+                </button>
+                <button onclick="passarDialogo()">
+                    <img src="/frontend/assets/todos/passarDialogo.png" alt="">
+                    <span>Não!</span>
+                </button>
+            </div>
+            <div class="box-comentario">
+                <div class="box-texto">
+                    <p>E a sua primeira vez aqui?</p>
+                </div>
+            </div>
+        `;
+
+        box.style.display = "flex";
+    }
+
+    function primeiraVez() {
+        trocarBackground("/frontend/assets/dreamWorld/backgroundv6.jpg");
+
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>Você</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaNome()">
+                    <div class="box-texto">
+                        <p>Este lugar parece diferente...</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+
+    function perguntaNome() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>Você</p>
+                </div>
+                <div class="box-comentario-input">
+                    <div class="box-texto">
+                        <p>Como devemos chamar você neste sonho?</p>
+                    </div>
+                    <div class="box-input">
+                        <input type="text" id="nome" class="inputDialogo">
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte2()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+
+    function dialogoParte2() {
+        const inputNome = document.getElementById("nome");
+        if (inputNome.value.trim() === "") {
+            inputNome.focus();
+            return;
+        }
+        cadastro.nomeSonho = inputNome.value.trim();
+
+        const cenario = document.getElementById("cenario");
+        cenario.classList.add("piscando");
+
+        setTimeout(() => {
+            const fundoAtual = document.getElementById("fundoAtual");
+            const box = document.getElementById("boxDialogo");
+            fundoAtual.style.backgroundImage = 'url("/frontend/assets/dreamWorld/backgroundv5.png")';
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaEmail()">
+                    <div class="box-texto">
+                        <p>Espero que esteja gostando daqui...</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 500);
+
+        setTimeout(() => {
+            cenario.classList.remove("piscando");
+        }, 1000);
+        
+    }
+    
+    function perguntaEmail() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario-input">
+                    <div class="box-texto">
+                        <p>Qual seu endereço para poder voltar??</p>
+                    </div>
+                    <div class="box-input">
+                        <input type="email" id="email" class="inputDialogo">
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte3()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+    
+    function dialogoParte3() {
+        const inputEmail = document.getElementById("email");
+        if (inputEmail.value.trim() === "" || !inputEmail.checkValidity()) {
+            inputEmail.reportValidity();
+            return;
+        }
+        cadastro.email = inputEmail.value.trim();
+
+        const cenario = document.getElementById("cenario");
+        cenario.classList.add("piscando");
+
+        setTimeout(() => {
+            const fundoAtual = document.getElementById("fundoAtual");
+            const box = document.getElementById("boxDialogo");
+            fundoAtual.style.backgroundImage = 'url("/frontend/assets/dreamWorld/backgroundv4.png")';
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaSenha()">
+                    <div class="box-texto">
+                        <p>Palavras são algo engraçado ne? Inventa uma secreta e me conta</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 500);
+
+        setTimeout(() => {
+            cenario.classList.remove("piscando");
+        }, 1000);
+    }
+
+    function perguntaSenha() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario-input">
+                    <div class="box-texto">
+                        <p>Qual palavra secreta, você pensou? (Eu sei, vai parar de ser secreta, vai ser nosso segredo)</p>
+                    </div>
+                    <div class="box-input">
+                        <input type="password" id="senha" class="inputDialogo">
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte4()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+
+    function dialogoParte4() {
+        const inputSenha = document.getElementById("senha");
+        if (inputSenha.value.length < 6) {
+            alert("A palavra secreta precisa ter pelo menos 6 caracteres.");
+            inputSenha.focus();
+            return;
+        }
+        cadastro.senha = inputSenha.value;
+
+        const cenario = document.getElementById("cenario");
+        cenario.classList.add("piscando");
+
+        setTimeout(() => {
+            const fundoAtual = document.getElementById("fundoAtual");
+            const box = document.getElementById("boxDialogo");
+            fundoAtual.style.backgroundImage = 'url("/frontend/assets/dreamWorld/backgroundv.png")';
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaNascimento()">
+                    <div class="box-texto">
+                        <p>Tudo precisa de um inicio ne?</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 500);
+
+        setTimeout(() => {
+            cenario.classList.remove("piscando");
+        }, 1000);
+    }
+
+    function perguntaNascimento() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario-input">
+                    <div class="box-texto">
+                        <p>Quando a sua começou?</p>
+                    </div>
+                    <div class="box-input">
+                        <input type="date" id="dtNascimento" class="inputDialogo">
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte5()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+
+    function dialogoParte5() {
+        const inputData = document.getElementById("dtNascimento");
+        if (inputData.value.length < 6) {
+            alert("A palavra secreta precisa ter pelo menos 6 caracteres.");
+            inputData.focus();
+            return;
+        }
+        cadastro.dataNascimento = inputData.value;
+
+        const cenario = document.getElementById("cenario");
+        cenario.classList.add("piscando");
+
+        setTimeout(() => {
+            const fundoAtual = document.getElementById("fundoAtual");
+            const box = document.getElementById("boxDialogo");
+            fundoAtual.style.backgroundImage = 'url("/frontend/assets/dreamWorld/backgroundv2.png")';
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaEmocao()">
+                    <div class="box-texto">
+                        <p>Acho que a vida tem muitas subidas e descidas, e as emoções sempre estão nelas</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 500);
+
+        setTimeout(() => {
+            cenario.classList.remove("piscando");
+        }, 1000);
+    }
+    
+    function perguntaEmocao() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario-input">
+                    <div class="box-texto">
+                        <p>Qual emoção mais representa você?</p>
+                    </div>
+                    <div class="box-radio">
+                        <label class="opcao-emocao neutro">
+                            <input type="radio" name="emocao" value="NEUTRO">
+                            <span>NEUTRO</span>
+                        </label>
+                        <label class="opcao-emocao feliz">
+                            <input type="radio" name="emocao" value="FELIZ">
+                            <span>FELIZ</span>
+                        </label>
+                        <label class="opcao-emocao triste">
+                            <input type="radio" name="emocao" value="TRISTE">
+                            <span>TRISTE</span>
+                        </label>
+                        <label class="opcao-emocao irritado">
+                            <input type="radio" name="emocao" value="IRRITADO">
+                            <span>IRRITADO</span>
+                        </label>
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte6()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+    
+    function dialogoParte6() {
+        const emocaoSelecionada = document.querySelector(
+            'input[name="emocao"]:checked'
+        );
+        if (emocaoSelecionada === null) {
+            alert("Escolha uma emoção para continuar.");
+            return;
+        }
+        cadastro.emocao = emocaoSelecionada.value;
+
+        const cenario = document.getElementById("cenario");
+        cenario.classList.add("piscando");
+
+        setTimeout(() => {
+            const fundoAtual = document.getElementById("fundoAtual");
+            const box = document.getElementById("boxDialogo");
+            fundoAtual.style.backgroundImage = 'url("/frontend/assets/dreamWorld/backgroundv2.png")';
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaGosto()">
+                    <div class="box-texto">
+                        <p>Tem algumas coisas, que não podem faltar na nossa vida ne? Coisas que nos fazem bem, que estranho pensar nisso</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 500);
+
+        setTimeout(() => {
+            cenario.classList.remove("piscando");
+        }, 1000);
+    }
+
+    function perguntaGosto() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario-input gostos">
+                    <div class="box-texto">
+                        <p>Quais dessas coisas fazem você se sentir bem?</p>
+                    </div>
+                    <div class="box-checkbox">
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="SILENCIO">
+                            <span>Silêncio</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="FICAR_SOZINHO">
+                            <span>Ficar sozinho</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="PARQUES">
+                            <span>Parques</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="REUNIR_PESSOAS">
+                            <span>Reunir pessoas</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="FOTOS">
+                            <span>Fotos</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="PLANTAS">
+                            <span>Plantas</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="COISAS_FOFAS">
+                            <span>Coisas fofas</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="ANIMAIS">
+                            <span>Animais</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="ESPORTES">
+                            <span>Esportes</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="BRINCAR">
+                            <span>Brincar</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="COZINHAR">
+                            <span>Cozinhar</span>
+                        </label>
+                        <label class="opcao-gosto">
+                            <input type="checkbox" name="gosto" value="AMOR">
+                            <span>O amor</span>
+                        </label>
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte7()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+    
+    function dialogoParte7() {
+        const selecionados = document.querySelectorAll(
+            'input[name="gosto"]:checked'
+        );
+        if (selecionados.length === 0) {
+            alert("Escolha pelo menos uma opção.");
+            return;
+        }
+        cadastro.escolhas = [];
+        selecionados.forEach((opcao) => {
+            cadastro.escolhas.push(opcao.value);
+        });
+
+        const cenario = document.getElementById("cenario");
+        cenario.classList.add("piscando");
+
+        setTimeout(() => {
+            const fundoAtual = document.getElementById("fundoAtual");
+            const box = document.getElementById("boxDialogo");
+            fundoAtual.style.backgroundImage = 'url("/frontend/assets/dreamWorld/backgroundv2.png")';
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaSonhador()">
+                    <div class="box-texto">
+                        <p>E a gente gosta de sonhar com essas e outras coisas, você gosta de sonhar acordado?</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 500);
+
+        setTimeout(() => {
+            cenario.classList.remove("piscando");
+        }, 1000);
+    }
+
+    function perguntaSonhador() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+
+                <div class="box-comentario-input">
+                    <div class="box-texto">
+                        <p>O quanto você se considera sonhador?</p>
+                    </div>
+                    <div class="box-input">
+                        <input type="number" id="nivelSonhador" class="inputDialogo inputNivel" min="0" max="5" step="1" placeholder="0">
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte8()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+    
+    function perguntaMedo() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario-input">
+                    <div class="box-texto">
+                        <p>Qual destes medos mais acompanha você?</p>
+                    </div>
+                    <div class="box-input">
+                        <select id="medo" class="selectDialogo">
+                            <option value="">
+                                Carregando medos...
+                            </option>
+                        </select>
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte8()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+
+            carregarMedos();
+        }, 800);
+    }
+
+    async function carregarMedos() {
+        const select = document.getElementById("medo");
+
+        try {
+            const resposta = await fetch(
+                "http://localhost:8080/medos"
+            );
+
+            if (!resposta.ok) {
+                throw new Error("Não foi possível carregar os medos.");
+            }
+
+            const medos = await resposta.json();
+
+            select.innerHTML = `<option value="">Escolha um medo</option>`;
+
+            medos.forEach((medo) => {
+                const option = document.createElement("option");
+                option.value = medo.id;
+                option.textContent = medo.nome;
+                select.appendChild(option);
+            });
+
+        } catch (erro) {
+            select.innerHTML = `
+                <option value="">
+                    Erro ao carregar
+                </option>
+            `;
+
+            console.error(erro);
+        }
+    }
+
+</script>

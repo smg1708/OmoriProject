@@ -13,6 +13,10 @@ body {
     overflow: hidden;
 }
 
+body {
+    background-color: black;
+}
+
 @font-face {
     font-family: 'Omori';
     src: url('/frontend/font/OMORI_GAME2.ttf') format('woff');
@@ -22,12 +26,359 @@ body {
 }
 
 .container-inicio {
-    align-items: center;
-    background-image: url("/frontend/assets/dreamWorld/background.png");
+    background-color: #000000;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container-inicio::after {
+    background-color: black;
+    content: "";
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.container-inicio.piscando {
+    animation: piscarTela 0.8s ease-in-out;
+}
+
+.fundo-slide {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.fundo-atual {
+    background-image: url("/frontend/assets/dreamWorld/background.png");
+    transform: translateX(0);
+    z-index: 0;
+}
+
+.fundo-proximo {
+    z-index: 1;
+    transform: translateX(100%);
+}
+
+.container-inicio.mudando-fundo .fundo-slide {
+    transition: transform 0.8s ease-in-out;
+}
+
+.container-inicio.mudando-fundo .fundo-atual {
+    transform: translateX(-100%);
+}
+
+.container-inicio.mudando-fundo .fundo-proximo {
+    transform: translateX(0);
+}
+
+.container-dialogo {
+    bottom: 5%;
     display: flex;
-    height: 100vh;
+    position: fixed;
     justify-content: center;
+    width: 100%;
+    z-index: 2;
+}
+
+.container-dialogo {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 5%;
+    width: 100%;
+    z-index: 2;
+}
+
+.box-dialogo {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    font-size: 32px;
+    gap: 10px;
+    text-align: left;
+    overflow: hidden;
+    width: min(530px, 90vw);
+}
+
+.container-nome-escolha {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.box-nome {
+    background-color: black;
+    border: 2px solid white;
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    min-width: 120px;
+    min-height: 36px;
+    padding: 0 10px;
+}
+
+.box-comentario {
+    background-color: black;
+    border: 2px solid white;
+    box-sizing: border-box;
+    min-height: 140px;
+    width: 100%;
+}
+
+.box-comentario {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    justify-content: space-between;
+}
+
+.box-imagem {
+    align-self: flex-end;
+    animation: piscar 0.75s steps(1) infinite;
+    cursor: pointer;
+    display: flex;
+    height: 50px;
+    width: 50px;
+}
+
+.box-imagem img {
+    display: flex;
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+}
+
+.box-escolhas {
+    align-self: flex-end;
+    background-color: black;
+    border: 3px solid white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    outline: 2px solid black;
+    width: 300px;
+}
+
+.box-escolhas button {
+    align-items: center;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    font-family: "Omori";
+    font-size: 28px;
+    text-align: left;
+    min-height: 45px;
+    width: 100%;
+}
+
+.box-escolhas button img {
+    height: 35px;
+    object-fit: contain;
+    opacity: 0;
+    width: 35px;
+}
+
+.box-escolhas button:first-child img {
+    opacity: 1;
+}
+
+.box-escolhas:has(button:hover) button:first-child img {
+    opacity: 0;
+}
+
+.box-escolhas button:hover img {
+    opacity: 1;
+    animation: moverSeta 0.5s steps(2) infinite;
+}
+
+.box-radio {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 30px;
+    margin: 12px 0;
+}
+
+.opcao-emocao {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    font-size: 25px;
+}
+
+.opcao-emocao input {
+    accent-color: white;
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+}
+
+.opcao-emocao span {
+    color: white;
+}
+
+.opcao-emocao.neutro input:checked + span {
+    color: white;
+}
+
+.opcao-emocao.feliz input:checked + span {
+    color: #ffe45c;
+}
+
+.opcao-emocao.triste input:checked + span {
+    color: #5cbcff;
+}
+
+.opcao-emocao.irritado input:checked + span {
+    color: #ff4d4d;
+}
+
+.box-comentario-input.gostos {
+    min-height: 300px;
+}
+
+.box-checkbox {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 18px;
+
+    width: 95%;
+    margin: 15px 0;
+}
+
+.opcao-gosto {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    font-size: 21px;
+    cursor: pointer;
+}
+
+.opcao-gosto input {
+    width: 17px;
+    height: 17px;
+
+    flex-shrink: 0;
+    cursor: pointer;
+    accent-color: white;
+}
+
+.opcao-gosto input:checked + span {
+    color: #ffe45c;
+}
+
+.inputNivel {
+    width: 80px;
+    text-align: center;
+}
+
+.box-comentario-input {
+    align-items: center;
+    background-color: black;
+    border: 2px solid white;
+    box-sizing: border-box;
+    display: flex;
+    min-height: 140px;
+    flex-direction: column;
+    padding-left: 10px;
+    justify-content: center;
+    width: 100%;
+}
+
+.inputDialogo {
+    align-items: center;
+    background: transparent;
+    border: none;
+    border-bottom: 3px dashed #ffffff;
+    color: #ffffff;
+    display: flex;
+    font-size: 24px;
+    padding: 5px 10px;
+    outline: none;
+    letter-spacing: 5px;
+    justify-content: center;
+}
+
+.input-Dialogo:focus {
+    border-bottom-style: solid;
+    color: #00ffcc;
+}
+
+.slide-saindo {
+    animation: sairPelaEsquerda 0.35s ease-in forwards;
+}
+
+.slide-entrando {
+    animation: entrarPelaDireita 0.35s ease-out forwards;
+}
+
+@keyframes piscarTela {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes sairPelaEsquerda {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+}
+
+@keyframes entrarPelaDireita {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes piscar {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+
+@keyframes moverSeta {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(5px);
+    }
 }
