@@ -13,6 +13,7 @@
         <div class="fundo-slide fundo-proximo" id="fundoProximo"></div>
         <div class="container-dialogo" id="containerDialogo">
             <div class="box-dialogo" id="boxDialogo" style="display: flex;">
+                <textarea id=""></textarea>
             </div>
         </div>
     </div>
@@ -87,7 +88,7 @@
                 <div class="box-nome">
                     <p>Você</p>
                 </div>
-                <div class="box-comentario" onclick="perguntaNome()">
+                <div class="box-comentario" onclick="perguntaSonho()">
                     <div class="box-texto">
                         <p>Este lugar parece diferente...</p>
                     </div>
@@ -549,6 +550,104 @@
         }, 800);
     }
     
+    function dialogoParte8() {
+        const nivelSonhador = document.getElementById("nivelSonhador");
+        if (nivelSonhador.value.length < 6) {
+            alert("A palavra secreta precisa ter pelo menos 6 caracteres.");
+            nivelSonhador.focus();
+            return;
+        }
+        cadastro.nivelSonhador = nivelSonhador 
+
+        const cenario = document.getElementById("cenario");
+        cenario.classList.add("piscando");
+
+        setTimeout(() => {
+            const fundoAtual = document.getElementById("fundoAtual");
+            const box = document.getElementById("boxDialogo");
+            fundoAtual.style.backgroundImage = 'url("/frontend/assets/dreamWorld/backgroundv1.png")';
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaSonho()">
+                    <div class="box-texto">
+                        <p>Tem alguns sonhos, que são para sempre né, e tem alguns que por mais que sejam para sempre, você esquece...</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 500);
+
+        setTimeout(() => {
+            cenario.classList.remove("piscando");
+        }, 1000);
+    }
+
+    function perguntaSonho() {
+        setTimeout(() => {
+            const box = document.getElementById("boxDialogo");
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+
+                <div class="box-comentario-input">
+                    <div class="box-texto">
+                        <p>Você tem um sonho que nunca esqueceu?</p>
+                    </div>
+                    <div class="box-textarea">
+                        <textarea id="sonho" class="textarea-dialogo textarea-nivel"></textarea>
+                    </div>
+                    <div class="box-imagem" onclick="dialogoParte9()">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 800);
+    }
+
+    function dialogoParte9() {
+        const nivelSonhador = document.getElementById("nivelSonhador");
+        if (nivelSonhador.value.length < 6) {
+            alert("A palavra secreta precisa ter pelo menos 6 caracteres.");
+            nivelSonhador.focus();
+            return;
+        }
+        cadastro.nivelSonhador = nivelSonhador 
+
+        const cenario = document.getElementById("cenario");
+        cenario.classList.add("piscando");
+
+        setTimeout(() => {
+            const fundoAtual = document.getElementById("fundoAtual");
+            const box = document.getElementById("boxDialogo");
+            fundoAtual.style.backgroundImage = 'url("/frontend/assets/dreamWorld/backgroundv2.png")';
+
+            box.innerHTML = `
+                <div class="box-nome">
+                    <p>${cadastro.nomeSonho}</p>
+                </div>
+                <div class="box-comentario" onclick="perguntaMedo()">
+                    <div class="box-texto">
+                        <p>O ruim de sonhar, são os pesadelos ne? Alguns vão dizer de altura, aranhas, insetos ou até agua...</p>
+                    </div>
+                    <div class="box-imagem">
+                        <img src="/frontend/assets/todos/passarDialogo.png" alt="Passar diálogo">
+                    </div>
+                </div>
+            `;
+        }, 500);
+
+        setTimeout(() => {
+            cenario.classList.remove("piscando");
+        }, 1000);
+    }
+
     function perguntaMedo() {
         setTimeout(() => {
             const box = document.getElementById("boxDialogo");
@@ -559,7 +658,7 @@
                 </div>
                 <div class="box-comentario-input">
                     <div class="box-texto">
-                        <p>Qual destes medos mais acompanha você?</p>
+                        <p>Mas e você? Qual destes medos mais acompanha você?</p>
                     </div>
                     <div class="box-input">
                         <select id="medo" class="selectDialogo">

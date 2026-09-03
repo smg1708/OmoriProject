@@ -317,6 +317,24 @@ body {
     color: #00ffcc;
 }
 
+.textarea-dialogo {
+    align-items: center;
+    background: transparent;
+    border: 3px dashed #ffffff;
+    color: #ffffff;
+    display: flex;
+    font-size: 24px;
+    padding: 5px 10px;
+    outline: none;
+    letter-spacing: 5px;
+    justify-content: center;
+}
+
+.box-textarea textarea {
+    max-height: 150px;
+    max-width: 400px;
+}
+
 .slide-saindo {
     animation: sairPelaEsquerda 0.35s ease-in forwards;
 }
